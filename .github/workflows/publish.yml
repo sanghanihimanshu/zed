@@ -23,17 +23,20 @@ jobs:
     - name: Install MSVC Build Tools and Windows SDK
       run: choco install visualstudio2019buildtools visualstudio2019-workload-vctools windows-sdk-10.0
 
+    - name: Install docker dependencies
+      run: docker compose up -d
+      
     - name: Install Cargo dependencies
       run: cargo fetch
-
+      
+    - name: Run Tests
+      run: cargo test --workspace
+      
     - name: Build Debug
       run: cargo build
 
     - name: Build Release
       run: cargo build --release
-
-    - name: Run Tests
-      run: cargo test --workspace
 
     - name: Create Release Directory
       run: mkdir release
